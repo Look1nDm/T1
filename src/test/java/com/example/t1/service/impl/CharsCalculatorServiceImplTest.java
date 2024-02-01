@@ -29,24 +29,24 @@ public class CharsCalculatorServiceImplTest {
 
     @Test
     public void calculateCharsOnStringTest() {
-        Map<Character, Integer> actualMap = charsCalculatorService.calculateCharsOnString(testString);
+        Map<Character, Integer> actualMap = charsCalculatorService.calculateCharsInString(testString);
         assertEquals(expectedMap, actualMap);
     }
 
     @Test
     public void calculateCharsOnStringIsNotNullTest() {
-        Map<Character, Integer> actualMap = charsCalculatorService.calculateCharsOnString(testString);
+        Map<Character, Integer> actualMap = charsCalculatorService.calculateCharsInString(testString);
         assertNotNull(actualMap);
     }
 
     @Test
     public void calculateCharsOnStringIsNullTest() {
         assertThrows(NoValidStringException.class,
-                () -> charsCalculatorService.calculateCharsOnString(testStringIsNull));
+                () -> charsCalculatorService.calculateCharsInString(testStringIsNull));
     }
     @Test
     public void calculateCharsOnStringIsEmptyTest(){
         assertThrows(NoValidStringException.class,
-                () -> charsCalculatorService.calculateCharsOnString(testStringIsEmpty));
+                () -> charsCalculatorService.calculateCharsInString(testStringIsEmpty));
     }
 }

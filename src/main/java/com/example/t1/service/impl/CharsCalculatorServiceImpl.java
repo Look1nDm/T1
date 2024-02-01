@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 public class CharsCalculatorServiceImpl implements CharsCalculatorService {
 
     @Override
-    public Map<Character, Integer> calculateCharsOnString(String s) {
+    public Map<Character, Integer> calculateCharsInString(String s) {
         if (validString(s)) {
-            Map<Character, Integer> map = new HashMap<>(stringOnMap(s));
-            return sortedValuesOnMap(map);
+            Map<Character, Integer> map = new HashMap<>(countChars(s));
+            return sort(map);
         } else {
             throw new NoValidStringException("Введите корректные данные");
         }
@@ -27,19 +27,16 @@ public class CharsCalculatorServiceImpl implements CharsCalculatorService {
         return s != null && !s.trim().isEmpty();
     }
 
-    private static Map<Character, Integer> stringOnMap(String s) {
-        Map<Character, Integer> map = new HashMap<>();
-        for (Character ch : s.toCharArray()) {
-            if (!map.containsKey(ch)) {
-                map.put(ch, 1);
-            } else {
-                map.put(ch, map.get(ch) + 1);
-            }
-        }
-        return map;
+    private static Map<Character, Integer> countChars(String s) {
+        return s.chars().mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(
+                        character -> character,
+                        LinkedHashMap::new,
+                        Collectors.summingInt(c -> 1)
+                ));
     }
 
-    private static Map<Character, Integer> sortedValuesOnMap(Map<Character, Integer> map) {
+    private static Map<Character, Integer> sort(Map<Character, Integer> map) {
         return map.entrySet()
                 .stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .collect(Collectors.toMap(
