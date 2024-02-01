@@ -10,15 +10,15 @@ import java.util.Map;
 @RestController("/v1/chars/calculator")
 public class CharsCalculatorController {
 
-    private final CharsCalculatorService calculateChars;
+    private final CharsCalculatorService calculateCharsService;
 
     public CharsCalculatorController(CharsCalculatorService calculateChars) {
-        this.calculateChars = calculateChars;
+        this.calculateCharsService = calculateChars;
     }
 
     @GetMapping("/{string}")
     public Map<Character, Integer> calculateCharsOnString(@PathVariable String string) {
         System.out.println("прошел запрос");
-        return calculateChars.calculateCharsOnString(string);
+        return calculateCharsService.calculateCharsInString(string);
     }
 }
